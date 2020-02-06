@@ -1,20 +1,22 @@
 #include "shop.h"
 
- 
+Customer::Customer(Shop& s) {m_shop = std::make_shared<Shop>(&s);}
+
 void Customer::push(orderList& shoppingList){
-   m_shoppingList = shoppingList;
-    m_trolley =  m_shop->recv(m_shoppingList);
+    m_shoppingList = shoppingList;
+    m_shop->recv(m_shoppingList);
 };
 
 void Customer::putInTrolley(std::vector<std::unique_ptr<Product>> && products){
     for (auto &p : products){
         m_trolley.push_back(std::move(p));
         std::cout << std::to_string(p->name) << " " << p->price << " " << p->quantity << std::endl;
-        
     }
 };
 
-std::vector<std::unique_ptr<Product>> Shop::recv(orderList shoppingList){
+Shop::Shop(Supplier& s) {*m_supplier = s;} //std::make_unique<Shop>(&s)
+
+void Shop::recv(orderList shoppingList){
     m_customerList = shoppingList;
     for (auto& c : m_customerList) {
         size_t count(0); //reset count for each food
@@ -50,7 +52,7 @@ void Shop::markup(){
 };
 
 void Shop::register_customer(Customer& c){
-    m_customer = std::make_shared<Customer>(&c);
+    m_customer = std::make_unique<Customer>(&c);
 };
 
 void Supplier::register_shop(Shop& s){
