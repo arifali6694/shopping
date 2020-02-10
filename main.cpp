@@ -13,9 +13,7 @@ namespace{
 int main(){
     Supplier sup;
     Shop tesco;
-    //sup.register_shop(Tesco);
     Customer arif;
-    //Tesco.register_customer(arif);
 
     tesco.printstock();
     orderList ariforder1 = {{beans, 1}, {egg, 10}};
