@@ -9,6 +9,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_executable(main main.cpp)
 
-add_library(shop shop.cpp)
+add_library(shop shop.h shop.cpp)
 
 target_link_libraries(main shop)
